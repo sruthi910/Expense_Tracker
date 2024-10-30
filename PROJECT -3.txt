@@ -1,0 +1,62 @@
+PROJECT -3   Creation of an "Expense Tracker" as part of your Python Programming internship
+
+SOURCE CODE
+
+def add_expense(expenses):
+    try:
+        amount = float(input("Enter the amount spent: "))
+        description = input("Enter a brief description of the expense: ").strip()
+        category = input("Enter the category (e.g., Food, Transport, Entertainment): ").strip()
+        expenses.append({"amount": amount, "description": description, "category": category})
+        print("Expense added successfully!")
+    except ValueError:
+        print("Error: Please enter a valid numeric value for the amount.")
+def view_expenses(expenses):
+    if not expenses:
+        print("No expenses recorded yet.")
+        return
+    
+    print("\nAll Recorded Expenses:")
+    for idx, expense in enumerate(expenses, 1):
+        print(f"{idx}. {expense['description']} - ${expense['amount']:.2f} [{expense['category']}]")
+    print()
+def analyze_expenses(expenses):
+    if not expenses:
+        print("No expenses to analyze.")
+        return
+    category_totals = {}
+    for expense in expenses:
+        category = expense['category']
+        category_totals[category] = category_totals.get(category, 0) + expense['amount']
+    
+    print("\nExpense Analysis by Category:")
+    for category, total in category_totals.items():
+        print(f"{category}: ${total:.2f}")
+    print()
+def main():
+    expenses = []
+    
+    while True:
+        print("\nExpense Tracker Menu")
+        print("1. Add Expense")
+        print("2. View Expenses")
+        print("3. Analyze Expenses")
+        print("4. Exit")
+        
+        choice = input("Choose an option (1-4): ").strip()
+        
+        if choice == "1":
+            add_expense(expenses)
+        elif choice == "2":
+            view_expenses(expenses)
+        elif choice == "3":
+            analyze_expenses(expenses)
+        elif choice == "4":
+            print("Exiting the Expense Tracker. Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please select a valid option.")
+
+# Start the Expense Tracker
+if __name__ == "__main__":
+    main()
